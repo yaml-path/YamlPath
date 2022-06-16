@@ -25,27 +25,3 @@ jobs:
       - name: Build
         run: |
           mvn -s .github/mvn-settings.xml clean install -Dvalidate-format
-  windows-build-jvm:
-    name: PR - Windows - JVM build
-    runs-on: windows-latest
-    strategy:
-      matrix:
-        java: [ 11 ]
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-      - name: Install JDK {{ matrix.java }}
-        uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
-        with:
-          distribution: 'temurin'
-          java-version: ${{ matrix.java }}
-          check-latest: true
-      - name: Build
-        shell: bash
-        run: |
-          mvn -s .github/mvn-settings.xml clean install -Dvalidate-format
