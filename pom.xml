@@ -1,0 +1,180 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.yamlpath</groupId>
+  <artifactId>yaml-path</artifactId>
+  <packaging>jar</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>YAML-Path Expression Language Parser</name>
+
+  <properties>
+    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.release>11</maven.compiler.release>
+    <maven.compiler.parameters>true</maven.compiler.parameters>
+
+    <jackson-dataformat-yaml.version>2.13.3</jackson-dataformat-yaml.version>
+    <junit-jupiter.version>5.5.0</junit-jupiter.version>
+    <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+    <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+    <formatter-maven-plugin.version>2.18.0</formatter-maven-plugin.version>
+    <impsort-maven-plugin.version>1.7.0</impsort-maven-plugin.version>
+    <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+    <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+
+    <!-- Format Settings -->
+    <src.format.goal>format</src.format.goal>
+    <src.sort.goal>sort</src.sort.goal>
+    <checkstyle.version>10.3</checkstyle.version>
+    <!-- Code Coverage Properties-->
+    <jacoco.agent.argLine/>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-yaml</artifactId>
+      <version>${jackson-dataformat-yaml.version}</version>
+    </dependency>
+
+    <!-- Testing -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>net.revelc.code.formatter</groupId>
+        <artifactId>formatter-maven-plugin</artifactId>
+        <version>${formatter-maven-plugin.version}</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>${src.format.goal}</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>net.revelc.code</groupId>
+        <artifactId>impsort-maven-plugin</artifactId>
+        <version>${impsort-maven-plugin.version}</version>
+        <configuration>
+          <!-- store outside of target to speed up formatting when mvn clean is used -->
+          <cachedir>.cache</cachedir>
+          <groups>java.,javax.,org.,com.</groups>
+          <staticGroups>*</staticGroups>
+          <removeUnused>true</removeUnused>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>${src.sort.goal}</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven-checkstyle-plugin.version}</version>
+        <configuration>
+          <configLocation>coding/checkstyle.xml</configLocation>
+          <encoding>UTF-8</encoding>
+          <consoleOutput>true</consoleOutput>
+          <failsOnError>true</failsOnError>
+          <linkXRef>true</linkXRef>
+        </configuration>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${checkstyle.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <argLine>${jacoco.agent.argLine}</argLine>
+          <trimStackTrace>false</trimStackTrace>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>validate-format</id>
+      <activation>
+        <property>
+          <name>validate-format</name>
+        </property>
+      </activation>
+      <properties>
+        <src.format.goal>validate</src.format.goal>
+        <src.sort.goal>check</src.sort.goal>
+      </properties>
+    </profile>
+    <!-- This profile generates jacoco coverage files. -->
+    <profile>
+      <id>coverage</id>
+      <activation>
+        <property>
+          <name>coverage</name>
+        </property>
+      </activation>
+      <properties>
+        <!--suppress UnresolvedMavenProperty to ignore warnings in idea-->
+        <jacoco.agent.argLine>${jacoco.generated.agent.argLine}</jacoco.agent.argLine>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+                <configuration>
+                  <includes>
+                    <include>org.yamlpath*</include>
+                  </includes>
+                  <propertyName>jacoco.generated.agent.argLine</propertyName>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>
