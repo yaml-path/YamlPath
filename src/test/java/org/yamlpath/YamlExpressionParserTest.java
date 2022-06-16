@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -114,7 +115,8 @@ public class YamlExpressionParserTest {
     private void assertGeneratedYaml(String method) throws IOException {
         String actual = parser.writeAsString();
         String expected = new String(
-                getClass().getResourceAsStream("/expected-" + method + "-kubernetes.yml").readAllBytes());
+                getClass().getResourceAsStream("/expected-" + method + "-kubernetes.yml").readAllBytes(),
+                StandardCharsets.UTF_8);
         assertEquals(expected, actual, "Unexpected generated YAML file. Found: " + actual);
     }
 }

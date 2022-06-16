@@ -1,5 +1,6 @@
 package org.yamlpath;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +37,7 @@ public class YamlExpressionParser {
      */
     public String writeAsString() {
         try {
-            return SerializationUtils.yamlMapper().writeValueAsString(resources);
+            return new String(SerializationUtils.yamlMapper().writeValueAsBytes(resources), StandardCharsets.UTF_8);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
