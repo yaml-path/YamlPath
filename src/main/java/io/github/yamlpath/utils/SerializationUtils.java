@@ -1,4 +1,4 @@
-package org.yamlpath.utils;
+package io.github.yamlpath.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

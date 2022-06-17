@@ -1,4 +1,4 @@
-package org.yamlpath;
+package io.github.yamlpath;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.yamlpath.utils.SerializationUtils;
+import io.github.yamlpath.utils.SerializationUtils;
 
 public final class YamlPath {
 

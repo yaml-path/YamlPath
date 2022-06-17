@@ -1,4 +1,4 @@
-package org.yamlpath;
+package io.github.yamlpath;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,10 +8,10 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
-import org.yamlpath.utils.SerializationUtils;
-import org.yamlpath.utils.StringUtils;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import io.github.yamlpath.utils.SerializationUtils;
+import io.github.yamlpath.utils.StringUtils;
 
 /**
  * Utility to parse expressions in YAML resources that are in the form of Maps.
