@@ -1,4 +1,4 @@
-package org.yamlpath.utils;
+package io.github.yamlpath.utils;
 
 public final class StringUtils {
 
