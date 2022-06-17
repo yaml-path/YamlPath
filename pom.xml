@@ -26,8 +26,6 @@
     <maven-javadoc-plugin.version>3.4.0</maven-javadoc-plugin.version>
     <maven-deploy-plugin.version>3.0.0-M2</maven-deploy-plugin.version>
     <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
-    <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
-    <maven-release-plugin.version>3.0.0-M6</maven-release-plugin.version>
 
     <!-- Format Settings -->
     <src.format.goal>format</src.format.goal>
@@ -238,7 +236,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-release-plugin</artifactId>
-            <version>${maven-release-plugin.version}</version>
             <configuration>
               <autoVersionSubmodules>true</autoVersionSubmodules>
               <tagNameFormat>@{project.version}</tagNameFormat>
@@ -251,7 +248,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>${maven-gpg-plugin.version}</version>
             <configuration>
               <gpgArguments>
                 <arg>--pinentry-mode</arg>
