@@ -47,7 +47,7 @@ jobs:
           mvn -Prelease -B release:prepare -DautoVersionSubmodules -DreleaseVersion=${{steps.metadata.outputs.current-version}} -DdevelopmentVersion=${{steps.metadata.outputs.next-version}} -s maven-settings.xml
           git checkout ${{github.base_ref}}
           git rebase release
-          mvn -B release:perform -DskipTests -s maven-settings.xml
+          mvn -Prelease -B release:perform -DskipTests -s maven-settings.xml
       - name: Push changes to ${{github.base_ref}}
         uses: ad-m/github-push-action@v0.6.0
         with:
