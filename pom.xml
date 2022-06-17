@@ -249,11 +249,8 @@
             <version>${maven-release-plugin.version}</version>
             <configuration>
               <autoVersionSubmodules>true</autoVersionSubmodules>
-              <pushChanges>false</pushChanges>
-              <useReleaseProfile>false</useReleaseProfile>
-              <releaseProfiles>release</releaseProfiles>
-              <goals>deploy</goals>
               <tagNameFormat>@{project.version}</tagNameFormat>
+              <pushChanges>false</pushChanges>
               <localCheckout>true</localCheckout>
               <remoteTagging>false</remoteTagging>
               <arguments>-DskipTests=true</arguments>
