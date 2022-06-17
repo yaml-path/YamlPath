@@ -8,10 +8,10 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import io.github.yamlpath.utils.SerializationUtils;
 import io.github.yamlpath.utils.StringUtils;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * Utility to parse expressions in YAML resources that are in the form of Maps.
