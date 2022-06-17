@@ -24,8 +24,9 @@
 
   <scm>
     <connection>scm:git:git@github.com:yaml-path/YamlPath.git</connection>
-    <developerConnection>scm:git:ssh://github.com:yaml-path/YamlPath.git</developerConnection>
-    <url>https://github.com/yaml-path/YamlPath/tree/main</url>
+    <developerConnection>scm:git:git@github.com:yaml-path/YamlPath.git</developerConnection>
+    <url>https://github.com/yaml-path/YamlPath</url>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
