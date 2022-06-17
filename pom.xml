@@ -6,6 +6,7 @@
   <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <name>YAML-Path Expression Language Parser</name>
+  <url>https://github.com/yaml-path/YamlPath</url>
 
   <properties>
     <maven.compiler.target>11</maven.compiler.target>
