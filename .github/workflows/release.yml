@@ -36,10 +36,12 @@ jobs:
           java-version: 11
           check-latest: true
 
+      - name: Configure Git author
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
       - name: Maven release ${{steps.metadata.outputs.current-version}}
         run: |
-          git config --local user.email "josecarvajalhilario@gmail.com"
-          git config --local user.name "Sgitario"
           gpg --quiet --batch --yes --decrypt --passphrase="${{secrets.GPG_PASSPHRASE}}" --output maven-settings.xml .github/release/maven-settings.xml.gpg
           git checkout -b release
           mvn -Prelease -B release:prepare -DautoVersionSubmodules -DreleaseVersion=${{steps.metadata.outputs.current-version}} -DdevelopmentVersion=${{steps.metadata.outputs.next-version}} -s maven-settings.xml
