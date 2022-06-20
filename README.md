@@ -53,8 +53,8 @@ If we write the following code:
 
 ```java
 String newYamlContent = YamlPath.from(file)
-        .set("metadata.name", "another-name!")
-        .writeAsString();
+        .write("metadata.name", "another-name!")
+        .dumpAsString();
 // Output of newYamlContent is:
 //        ---
 //        apiVersion: apps/v1
