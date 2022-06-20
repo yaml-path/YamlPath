@@ -34,7 +34,7 @@ public class YamlExpressionParser {
      *
      * @return the resources in string format.
      */
-    public String writeAsString() {
+    public String dumpAsString() {
         try {
             return SerializationUtils.yamlMapper().writeValueAsString(resources);
         } catch (JsonProcessingException e) {
@@ -51,7 +51,7 @@ public class YamlExpressionParser {
      * @return a single result found at `path`. It throws an exception if more than one value is found.
      */
     public <T> T readSingle(String path) {
-        return (T) readSingleAndSet(path, NO_REPLACEMENT);
+        return (T) readSingleAndReplace(path, NO_REPLACEMENT);
     }
 
     /**
@@ -63,7 +63,7 @@ public class YamlExpressionParser {
      * @return the list of values that have been found at `path`.
      */
     public <T> Set<T> read(String path) {
-        return readAndSet(path, NO_REPLACEMENT);
+        return readAndReplace(path, NO_REPLACEMENT);
     }
 
     /**
@@ -74,8 +74,8 @@ public class YamlExpressionParser {
      * @param replacement
      *            The value to replace.
      */
-    public void set(String path, String replacement) {
-        readAndSet(path, replacement);
+    public void write(String path, String replacement) {
+        readAndReplace(path, replacement);
     }
 
     /**
@@ -88,8 +88,8 @@ public class YamlExpressionParser {
      *
      * @return a single result found at `path`. It throws an exception if more than one value is found.
      */
-    public <T> T readSingleAndSet(String path, String replacement) {
-        Set<T> values = readAndSet(path, replacement);
+    public <T> T readSingleAndReplace(String path, String replacement) {
+        Set<T> values = readAndReplace(path, replacement);
         return uniqueResult(values, path);
     }
 
@@ -103,7 +103,7 @@ public class YamlExpressionParser {
      *
      * @return the list of distinct values that have been found at `path`.
      */
-    public <T> Set<T> readAndSet(String path, String replacement) {
+    public <T> Set<T> readAndReplace(String path, String replacement) {
         Set<T> values = new HashSet<>();
         for (Map<Object, Object> resource : resources) {
             Object value = readValuesForResource(resource, path, replacement);
