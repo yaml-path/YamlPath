@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.github.yamlpath.utils.StringUtils;
+
 public class YamlExpressionParserTest {
 
     private YamlExpressionParser parser;
@@ -113,8 +115,8 @@ public class YamlExpressionParserTest {
 
     private void assertGeneratedYaml(String method) throws IOException {
         String actual = parser.dumpAsString();
-        String expected = new String(
-                getClass().getResourceAsStream("/expected-" + method + "-kubernetes.yml").readAllBytes());
+        String expected = StringUtils
+                .readAllBytes(getClass().getResourceAsStream("/expected-" + method + "-kubernetes.yml"));
         assertEquals(expected, actual, "Unexpected generated YAML file. Found: " + actual);
     }
 }

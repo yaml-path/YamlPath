@@ -33,13 +33,13 @@ public final class SerializationUtils {
     /**
      * Unmarshals a file into a list of maps.
      *
-     * @param file
+     * @param inputStream
      *            The {@link InputStream}.
      *
      * @return
      */
-    public static List<Map<Object, Object>> unmarshalAsListOfMaps(InputStream file) throws IOException {
-        return unmarshalAsListOfMaps(new String(file.readAllBytes()));
+    public static List<Map<Object, Object>> unmarshalAsListOfMaps(InputStream inputStream) throws IOException {
+        return unmarshalAsListOfMaps(StringUtils.readAllBytes(inputStream));
     }
 
     /**
