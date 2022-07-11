@@ -8,6 +8,7 @@ import java.util.ServiceLoader;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import io.github.yamlpath.WorkUnit;
 import io.github.yamlpath.processor.expressions.ExpressionProcessor;
@@ -20,9 +21,9 @@ public class ExpressionPathProcessor implements PathProcessor {
     private final List<ExpressionProcessor> supportedExpressions;
 
     public ExpressionPathProcessor() {
-        this.supportedExpressions = ServiceLoader.load(ExpressionProcessor.class).stream()
-                .map(ServiceLoader.Provider::get).sorted(Comparator.comparingInt(ExpressionProcessor::getPriority))
-                .collect(Collectors.toList());
+        this.supportedExpressions = StreamSupport
+                .stream(ServiceLoader.load(ExpressionProcessor.class).spliterator(), false)
+                .sorted(Comparator.comparingInt(ExpressionProcessor::getPriority)).collect(Collectors.toList());
     }
 
     @Override

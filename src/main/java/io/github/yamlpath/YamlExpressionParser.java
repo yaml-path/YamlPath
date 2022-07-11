@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -25,7 +26,7 @@ public class YamlExpressionParser {
 
     public YamlExpressionParser(List<Map<Object, Object>> resources) {
         this.resources = resources;
-        this.processors = ServiceLoader.load(PathProcessor.class).stream().map(ServiceLoader.Provider::get)
+        this.processors = StreamSupport.stream(ServiceLoader.load(PathProcessor.class).spliterator(), false)
                 .collect(Collectors.toList());
     }
 
