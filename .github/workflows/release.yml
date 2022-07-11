@@ -60,3 +60,4 @@ jobs:
           branch: ${{github.base_ref}}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tags: true
+          force_with_lease: true
