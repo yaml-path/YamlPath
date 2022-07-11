@@ -22,9 +22,16 @@ public class YamlExpressionParserTest {
 
     @Test
     public void parseSimpleExpression() throws IOException {
-        String found = parser.readSingleAndReplace("metadata.name", "{{ .Values.app.name }}");
+        Object found = parser.readSingleAndReplace("metadata.name", "{{ .Values.app.name }}");
         assertEquals("example", found);
         assertGeneratedYaml("parseSimpleExpression");
+    }
+
+    @Test
+    public void parseSimpleExpressionReplicas() throws IOException {
+        Object found = parser.readSingleAndReplace("(kind == Deployment && metadata.name == example).spec.replicas",
+                "{{ .Values.app.replicas }}");
+        assertEquals(3, found);
     }
 
     @Test

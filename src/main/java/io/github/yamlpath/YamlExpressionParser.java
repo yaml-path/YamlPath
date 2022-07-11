@@ -3,6 +3,7 @@ package io.github.yamlpath;
 import static io.github.yamlpath.utils.PathUtils.NO_REPLACEMENT;
 import static io.github.yamlpath.utils.SetUtils.uniqueResult;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +27,16 @@ public class YamlExpressionParser {
 
     public YamlExpressionParser(List<Map<Object, Object>> resources) {
         this.resources = resources;
-        this.processors = StreamSupport.stream(ServiceLoader.load(PathProcessor.class).spliterator(), false)
-                .collect(Collectors.toList());
+        this.processors = StreamSupport.stream(
+                ServiceLoader.load(PathProcessor.class, YamlExpressionParser.class.getClassLoader()).spliterator(),
+                false).collect(Collectors.toList());
+    }
+
+    /**
+     * @return copy of the current state of the resources.
+     */
+    public List<Map<Object, Object>> getResources() {
+        return Collections.unmodifiableList(resources);
     }
 
     /**
