@@ -120,6 +120,13 @@ public class YamlExpressionParserTest {
         assertGeneratedYaml("parseExpressionWithCommandArray");
     }
 
+    @Test
+    public void parseExpressionWithCommandAndPosition() throws IOException {
+        String found = parser.readSingleAndReplace("*.containers.command[1]", "{{ .Values.app.the-command }}");
+        assertEquals("command2", found);
+        assertGeneratedYaml("parseExpressionWithCommandAndPosition");
+    }
+
     private void assertGeneratedYaml(String method) throws IOException {
         String actual = parser.dumpAsString();
         String expected = StringUtils

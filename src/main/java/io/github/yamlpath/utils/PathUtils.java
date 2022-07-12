@@ -8,6 +8,8 @@ public final class PathUtils {
     public static final String DOT = ".";
     public static final String PARENTHESIS_OPEN = "(";
     public static final String PARENTHESIS_CLOSE = ")";
+    public static final String INDEX_OPEN = "[";
+    public static final String INDEX_CLOSE = "]";
 
     private PathUtils() {
 
