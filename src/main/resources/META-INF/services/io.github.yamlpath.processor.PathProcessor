@@ -1,3 +1,4 @@
 io.github.yamlpath.processor.PartPathProcessor
 io.github.yamlpath.processor.WildcardPartPathProcessor
 io.github.yamlpath.processor.ExpressionPathProcessor
+io.github.yamlpath.processor.IndexPartPathProcessor

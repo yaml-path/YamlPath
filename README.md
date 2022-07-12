@@ -100,6 +100,24 @@ And what about if the `containerPort` property is at one place in the Deployment
 
 To ease up this use case, we can use wildcards. For example, using the expression "*.ports.containerPort", it would map all the container ports at any level.
 
+## Expressions with index
+
+For example, having the following YAML resource:
+
+```yaml
+apiVersion: v1
+kind: Resource
+metadata:
+  name: "a name"
+spec:
+  args:
+  - value 1
+  - value 2
+  - value 3
+```
+
+We can use this expression "spec.args[1]", to return the value at the position 1 which is "value 2".
+
 ## Escape characters
 
 If you want to select properties which key contains special characters like '.', you need to escape them using `'`, for example, using the path expression "".
