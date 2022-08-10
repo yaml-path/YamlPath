@@ -60,7 +60,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
       - name: Archive Coverage Report
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: ci-coverage
           path: coverage-report/target/site/jacoco
