@@ -20,7 +20,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Install JDK {{ matrix.java }}
-        uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
+        uses: joschi/setup-jdk@fdc8726d3eaee700a67647704c396f71fe773eed
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
