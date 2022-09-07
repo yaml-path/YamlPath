@@ -10,18 +10,13 @@ jobs:
         java: [ 11 ]
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
       - name: Install JDK {{ matrix.java }}
-        uses: joschi/setup-jdk@fdc8726d3eaee700a67647704c396f71fe773eed
+        uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
           check-latest: true
+          cache: 'maven'
       - name: Build
         run: |
           mvn -s .github/mvn-settings.xml clean install -Dvalidate-format

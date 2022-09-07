@@ -30,7 +30,7 @@ jobs:
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Install JDK 11
-        uses: joschi/setup-jdk@fdc8726d3eaee700a67647704c396f71fe773eed
+        uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: 11
