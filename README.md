@@ -13,13 +13,13 @@
 
 **A Java DSL for reading YAML documents and replacing values.**
 
-YamlPath is available at [the Maven Central Repository](https://search.maven.org/search?q=a:yaml-path%20AND%20g:org.yamlpath). To use it, simply declare the following dependency part of your pom file:
+YamlPath is available at [the Maven Central Repository](https://search.maven.org/search?q=a:yaml-path%20AND%20g:io.github.yaml-path). To use it, simply declare the following dependency part of your pom file:
 
 ```xml
 <dependency>
-    <groupId>org.yamlpath</groupId>
+    <groupId>io.github.yaml-path</groupId>
     <artifactId>yaml-path</artifactId>
-    <version>${latest version in Maven Central</version>
+    <version>${latest version in Maven Central}</version>
 </dependency>
 ```
 
