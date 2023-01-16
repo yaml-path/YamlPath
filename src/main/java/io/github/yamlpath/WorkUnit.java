@@ -8,8 +8,9 @@ import static io.github.yamlpath.utils.PathUtils.PARENTHESIS_OPEN;
 import static io.github.yamlpath.utils.PathUtils.normalize;
 
 import java.util.Map;
-import java.util.function.Consumer;
 
+import io.github.yamlpath.setters.LastNodeSetter;
+import io.github.yamlpath.setters.Setter;
 import io.github.yamlpath.utils.StringUtils;
 
 public class WorkUnit {
@@ -17,7 +18,7 @@ public class WorkUnit {
     private Map<Object, Object> node;
     private Path lastVisited;
     private Object result;
-    private Consumer<String> replacementHook;
+    private Setter setter = new LastNodeSetter(this);
 
     public WorkUnit(Map<Object, Object> node, String expression) {
         this.node = node;
@@ -34,6 +35,14 @@ public class WorkUnit {
 
     public boolean hasNextPath() {
         return !StringUtils.isNullOrEmpty(expression);
+    }
+
+    public Path getLastVisited() {
+        return lastVisited;
+    }
+
+    public void setSetter(Setter setter) {
+        this.setter = setter;
     }
 
     public Path nextPath() {
@@ -67,10 +76,6 @@ public class WorkUnit {
         return lastVisited;
     }
 
-    public void setReplacementHook(Consumer<String> replacementHook) {
-        this.replacementHook = replacementHook;
-    }
-
     public WorkUnit clone() {
         WorkUnit workUnit = new WorkUnit(this.node, this.expression);
         workUnit.lastVisited = this.lastVisited;
@@ -82,13 +87,9 @@ public class WorkUnit {
         this.node = node;
     }
 
-    protected void replaceResourceWith(String replacement) {
-        if (lastVisited != null && !NO_REPLACEMENT.equals(replacement)) {
-            if (replacementHook != null) {
-                replacementHook.accept(replacement);
-            } else {
-                lastVisited.tree.put(lastVisited.part, replacement);
-            }
+    protected void replaceResourceWith(Object replacement) {
+        if (!NO_REPLACEMENT.equals(replacement)) {
+            setter.setValue(replacement);
         }
     }
 

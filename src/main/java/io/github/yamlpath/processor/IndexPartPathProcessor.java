@@ -6,6 +6,7 @@ import static io.github.yamlpath.utils.PathUtils.INDEX_OPEN;
 import java.util.List;
 
 import io.github.yamlpath.WorkUnit;
+import io.github.yamlpath.setters.ListAtPositionSetter;
 
 public class IndexPartPathProcessor implements PathProcessor {
 
@@ -23,7 +24,7 @@ public class IndexPartPathProcessor implements PathProcessor {
         if (value instanceof List) {
             int indexOfIndexClose = path.getPart().indexOf(INDEX_CLOSE);
             int position = Integer.parseInt(path.getPart().substring(indexOfIndexOpen + 1, indexOfIndexClose));
-            workUnit.setReplacementHook(replacement -> ((List) value).set(position, replacement));
+            workUnit.setSetter(new ListAtPositionSetter((List) value, position));
 
             return ((List) value).get(position);
         } else {

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -125,6 +127,25 @@ public class YamlExpressionParserTest {
         String found = parser.readSingleAndReplace("*.containers.command[1]", "{{ .Values.app.the-command }}");
         assertEquals("command2", found);
         assertGeneratedYaml("parseExpressionWithCommandAndPosition");
+    }
+
+    @Test
+    public void replaceLists() throws IOException {
+        parser.write("*.containers.command", Arrays.asList("newCommand1", "newCommand2"));
+        assertGeneratedYaml("replaceLists");
+    }
+
+    @Test
+    public void replaceListsResetCommand() throws IOException {
+        parser.write("*.containers.command", "newCommand3");
+        assertGeneratedYaml("replaceListsResetCommand");
+    }
+
+    @Test
+    public void replaceMaps() throws IOException {
+        parser.write("*.containers[0]",
+                Collections.singletonMap("command", Arrays.asList("newCommand1", "newCommand2")));
+        assertGeneratedYaml("replaceMaps");
     }
 
     private void assertGeneratedYaml(String method) throws IOException {

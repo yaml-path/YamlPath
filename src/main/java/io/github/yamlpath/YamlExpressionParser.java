@@ -84,7 +84,7 @@ public class YamlExpressionParser {
      * @param replacement
      *            The value to replace.
      */
-    public void write(String path, String replacement) {
+    public void write(String path, Object replacement) {
         readAndReplace(path, replacement);
     }
 
@@ -98,7 +98,7 @@ public class YamlExpressionParser {
      *
      * @return a single result found at `path`. It throws an exception if more than one value is found.
      */
-    public <T> T readSingleAndReplace(String path, String replacement) {
+    public <T> T readSingleAndReplace(String path, Object replacement) {
         Set<T> values = readAndReplace(path, replacement);
         return uniqueResult(values);
     }
@@ -113,7 +113,7 @@ public class YamlExpressionParser {
      *
      * @return the list of distinct values that have been found at `path`.
      */
-    public <T> Set<T> readAndReplace(String path, String replacement) {
+    public <T> Set<T> readAndReplace(String path, Object replacement) {
         Set<T> values = new HashSet<>();
         for (Map<Object, Object> resource : resources) {
             Object value = doReadAndReplace(new WorkUnit(resource, path), replacement);
@@ -125,7 +125,7 @@ public class YamlExpressionParser {
         return values;
     }
 
-    private Object doReadAndReplace(WorkUnit workUnit, String replacement) {
+    private Object doReadAndReplace(WorkUnit workUnit, Object replacement) {
         if (!workUnit.hasNextPath()) {
             workUnit.replaceResourceWith(replacement);
 
@@ -143,29 +143,30 @@ public class YamlExpressionParser {
         return null;
     }
 
-    private Object processResult(WorkUnit workUnit, String replacement) {
-        if (workUnit.getResult() != null && workUnit.hasNextPath()) {
-            if (workUnit.getResult() instanceof Map) {
-                workUnit.setNode((Map<Object, Object>) workUnit.getResult());
-                return doReadAndReplace(workUnit, replacement);
-            } else if (workUnit.getResult() instanceof List) {
-                Set<Object> values = new HashSet<>();
-                for (Object inner : (List) workUnit.getResult()) {
-                    if (inner instanceof Map) {
-                        workUnit.setNode((Map<Object, Object>) inner);
-                        Object value = doReadAndReplace(workUnit.clone(), replacement);
-                        if (value != null) {
-                            values.add(value);
+    private Object processResult(WorkUnit workUnit, Object replacement) {
+        if (workUnit.getResult() != null) {
+
+            if (workUnit.hasNextPath()) {
+                if (workUnit.getResult() instanceof Map) {
+                    workUnit.setNode((Map<Object, Object>) workUnit.getResult());
+                    return doReadAndReplace(workUnit, replacement);
+                } else if (workUnit.getResult() instanceof List) {
+                    Set<Object> values = new HashSet<>();
+                    for (Object inner : (List) workUnit.getResult()) {
+                        if (inner instanceof Map) {
+                            workUnit.setNode((Map<Object, Object>) inner);
+                            Object value = doReadAndReplace(workUnit.clone(), replacement);
+                            if (value != null) {
+                                values.add(value);
+                            }
                         }
                     }
+
+                    return uniqueResult(values);
                 }
-
-                return uniqueResult(values);
+            } else {
+                workUnit.replaceResourceWith(replacement);
             }
-        }
-
-        if (!workUnit.hasNextPath()) {
-            workUnit.replaceResourceWith(replacement);
         }
 
         return workUnit.getResult();
