@@ -23,6 +23,8 @@ YamlPath is available at [the Maven Central Repository](https://search.maven.org
 </dependency>
 ```
 
+Also, YAMLPath is available as a command line interface. For further information about how to install it and use it, please go to [this link](https://github.com/yaml-path/jbang).
+
 ## Usage
 
 The simplest most straight forward way to use YamlPath is via the static API.
