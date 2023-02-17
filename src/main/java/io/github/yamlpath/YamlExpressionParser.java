@@ -84,8 +84,9 @@ public class YamlExpressionParser {
      * @param replacement
      *            The value to replace.
      */
-    public void write(String path, Object replacement) {
+    public YamlExpressionParser write(String path, Object replacement) {
         readAndReplace(path, replacement);
+        return this;
     }
 
     /**
