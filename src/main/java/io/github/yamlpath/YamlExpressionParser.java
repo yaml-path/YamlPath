@@ -3,7 +3,6 @@ package io.github.yamlpath;
 import static io.github.yamlpath.utils.PathUtils.NO_REPLACEMENT;
 import static io.github.yamlpath.utils.SetUtils.uniqueResult;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
