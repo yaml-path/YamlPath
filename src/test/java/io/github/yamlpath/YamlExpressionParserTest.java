@@ -130,6 +130,14 @@ public class YamlExpressionParserTest {
     }
 
     @Test
+    public void readSeveralDifferentValues() {
+        List<Object> found = parser.read(Arrays.asList("*.containers.command[0]", "*.containers.command[1]"));
+        assertEquals(2, found.size());
+        assertEquals("command1", found.get(0));
+        assertEquals("command2", found.get(1));
+    }
+
+    @Test
     public void replaceLists() throws IOException {
         parser.write("*.containers.command", Arrays.asList("newCommand1", "newCommand2"));
         assertGeneratedYaml("replaceLists");
