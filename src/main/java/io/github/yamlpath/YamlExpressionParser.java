@@ -3,6 +3,7 @@ package io.github.yamlpath;
 import static io.github.yamlpath.utils.PathUtils.NO_REPLACEMENT;
 import static io.github.yamlpath.utils.SetUtils.uniqueResult;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -74,6 +75,32 @@ public class YamlExpressionParser {
      */
     public <T> Set<T> read(String path) {
         return readAndReplace(path, NO_REPLACEMENT);
+    }
+
+    /**
+     * Read the values at `paths`.
+     *
+     * @param paths
+     *            list of path to check
+     *
+     * @return the list of values that have been found at `paths`.
+     */
+    public List<Object> read(List<String> paths) {
+        List<Object> result = new ArrayList<>();
+        for (String path : paths) {
+            Set<Object> found = read(path);
+            if (found.isEmpty()) {
+                continue;
+            }
+
+            if (found.size() == 1) {
+                result.add(found.iterator().next());
+            } else {
+                result.add(found);
+            }
+        }
+
+        return result;
     }
 
     /**
