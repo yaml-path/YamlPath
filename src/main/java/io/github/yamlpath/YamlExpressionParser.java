@@ -5,6 +5,7 @@ import static io.github.yamlpath.utils.SetUtils.uniqueResult;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -85,22 +86,34 @@ public class YamlExpressionParser {
      *
      * @return the list of values that have been found at `paths`.
      */
-    public List<Object> read(List<String> paths) {
-        List<Object> result = new ArrayList<>();
+    public Map<String, Object> read(List<String> paths) {
+        Map<String, Object> result = new HashMap<>();
         for (String path : paths) {
             Set<Object> found = read(path);
-            if (found.isEmpty()) {
-                continue;
-            }
-
             if (found.size() == 1) {
-                result.add(found.iterator().next());
+                result.put(path, found.iterator().next());
             } else {
-                result.add(found);
+                result.put(path, found);
             }
         }
 
         return result;
+    }
+
+    /**
+     * Overwrite the value at `paths`.
+     *
+     * @param paths
+     *            The path expressions where to read and replace the value.
+     * @param replacement
+     *            The value to replace.
+     */
+    public YamlExpressionParser write(List<String> paths, Object replacement) {
+        for (String path : paths) {
+            readAndReplace(path, replacement);
+        }
+
+        return this;
     }
 
     /**

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -131,10 +132,10 @@ public class YamlExpressionParserTest {
 
     @Test
     public void readSeveralDifferentValues() {
-        List<Object> found = parser.read(Arrays.asList("*.containers.command[0]", "*.containers.command[1]"));
+        Map<String, Object> found = parser.read(Arrays.asList("*.containers.command[0]", "*.containers.command[1]"));
         assertEquals(2, found.size());
-        assertEquals("command1", found.get(0));
-        assertEquals("command2", found.get(1));
+        assertEquals("command1", found.get("*.containers.command[0]"));
+        assertEquals("command2", found.get("*.containers.command[1]"));
     }
 
     @Test
