@@ -47,7 +47,12 @@ public class YamlExpressionParser {
      */
     public String dumpAsString() {
         try {
-            return SerializationUtils.yamlMapper().writeValueAsString(resources);
+            if (resources.size() == 1) {
+                return SerializationUtils.yamlMapper().writeValueAsString(resources.get(0));
+            } else {
+                return SerializationUtils.yamlMapper().writeValueAsString(resources);
+            }
+
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -185,7 +190,6 @@ public class YamlExpressionParser {
 
     private Object processResult(WorkUnit workUnit, Object replacement) {
         if (workUnit.getResult() != null) {
-
             if (workUnit.hasNextPath()) {
                 if (workUnit.getResult() instanceof Map) {
                     workUnit.setNode((Map<Object, Object>) workUnit.getResult());

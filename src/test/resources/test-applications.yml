@@ -1,0 +1,11 @@
+---
+applications:
+  name: my-app
+  routes:
+    - route: example.com
+    - route: www.example.com/foo
+    - route: tcp-example.com:1234
+  env:
+    greeting: hello
+    BUNDLE_WITHOUT: test:development
+    stuff: other

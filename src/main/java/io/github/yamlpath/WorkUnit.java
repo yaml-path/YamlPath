@@ -42,7 +42,9 @@ public class WorkUnit {
     }
 
     public void setSetter(Setter setter) {
-        this.setter = setter;
+        if (!hasNextPath()) {
+            this.setter = setter;
+        }
     }
 
     public Path nextPath() {
