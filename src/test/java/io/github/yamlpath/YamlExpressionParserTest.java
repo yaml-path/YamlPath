@@ -31,7 +31,7 @@ public class YamlExpressionParserTest {
     }
 
     @Test
-    public void parseSimpleExpressionReplicas() throws IOException {
+    public void parseSimpleExpressionReplicas() {
         Object found = parser.readSingleAndReplace("(kind == Deployment && metadata.name == example).spec.replicas",
                 "{{ .Values.app.replicas }}");
         assertEquals(3, found);
