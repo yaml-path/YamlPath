@@ -15,9 +15,11 @@ public class ListSetter implements Setter {
     public void setValue(Object value) {
         if (value instanceof Collection) {
             // append values
+            list.clear();
             list.addAll((Collection) value);
         } else {
             // add value to item
+            list.clear();
             list.add(value);
         }
     }

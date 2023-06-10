@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +33,23 @@ public class YamlExpressionWriterTest {
         parser.write("applications.routes[0]", Collections.singletonMap("route", "writeYamlWithMaps"));
 
         assertGeneratedFile(parser, "writeYamlWithMaps");
+    }
+
+    @Test
+    public void replaceYamlListsWithDescendants() throws IOException {
+        List<java.util.Map<String, String>> replacement = new java.util.ArrayList<>();
+        replacement.add(Collections.singletonMap("route", "replaceYamlListsWithDescendants"));
+        parser.write(".*.routes", replacement);
+
+        assertGeneratedFile(parser, "replaceYamlListsWithDescendants");
+    }
+
+    @Test
+    public void writeAtPositionYamlLists() throws IOException {
+        Map<String, String> replacement = Collections.singletonMap("route", "writeAtPositionYamlLists");
+        parser.write(".*.routes[1]", replacement);
+
+        assertGeneratedFile(parser, "writeAtPositionYamlLists");
     }
 
     private void assertGeneratedFile(YamlExpressionParser parser, String method) throws IOException {
