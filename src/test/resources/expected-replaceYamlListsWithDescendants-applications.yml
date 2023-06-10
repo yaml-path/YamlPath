@@ -1,0 +1,9 @@
+---
+applications:
+  name: my-app
+  routes:
+    - route: replaceYamlListsWithDescendants
+  env:
+    greeting: hello
+    BUNDLE_WITHOUT: test:development
+    stuff: other
