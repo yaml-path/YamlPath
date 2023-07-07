@@ -1,0 +1,12 @@
+colorBlock=47,95,95
+colorBooleans=104,151,187
+colorComments=115,130,140
+colorDoubleStrings=23,198,163
+colorHyperlink=143,155,163
+colorMappings=197,104,28
+colorNormalText=227,230,232
+colorSingleStrings=23,198,163
+colorTemplateVariable=255,51,153
+colorYamlKeywords=126,140,149
+eclipse.preferences.version=1
+overriddenByCSS=,colorBlock,colorBooleans,colorComments,colorDoubleStrings,colorHyperlink,colorMappings,colorNormalText,colorSingleStrings,colorTemplateVariable,colorYamlKeywords,

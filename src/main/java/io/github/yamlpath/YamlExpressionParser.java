@@ -205,8 +205,8 @@ public class YamlExpressionParser {
                             }
                         }
                     }
-
-                    return uniqueResult(values);
+                    return values;
+                    // return uniqueResult(values);
                 }
             } else {
                 workUnit.replaceResourceWith(replacement);
