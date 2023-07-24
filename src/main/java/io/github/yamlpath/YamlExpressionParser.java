@@ -5,7 +5,8 @@ import static io.github.yamlpath.utils.SetUtils.uniqueResult;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
@@ -159,7 +160,7 @@ public class YamlExpressionParser {
      * @return the list of distinct values that have been found at `path`.
      */
     public <T> Set<T> readAndReplace(String path, Object replacement) {
-        Set<T> values = new HashSet<>();
+        Set<T> values = new LinkedHashSet<>();
         for (Map<Object, Object> resource : resources) {
             Object value = doReadAndReplace(new WorkUnit(resource, path), replacement);
             if (value != null) {
@@ -195,18 +196,28 @@ public class YamlExpressionParser {
                     workUnit.setNode((Map<Object, Object>) workUnit.getResult());
                     return doReadAndReplace(workUnit, replacement);
                 } else if (workUnit.getResult() instanceof List) {
-                    Set<Object> values = new HashSet<>();
+                    List<Object> values = new LinkedList<>();
                     for (Object inner : (List) workUnit.getResult()) {
                         if (inner instanceof Map) {
                             workUnit.setNode((Map<Object, Object>) inner);
                             Object value = doReadAndReplace(workUnit.clone(), replacement);
                             if (value != null) {
-                                values.add(value);
+                                if (value instanceof List) {
+                                    values.addAll((List) value);
+                                } else {
+                                    values.add(value);
+                                }
                             }
                         }
                     }
 
-                    return uniqueResult(values);
+                    if (values.isEmpty()) {
+                        return null;
+                    } else if (values.size() == 1) {
+                        return values.get(0);
+                    }
+
+                    return values;
                 }
             } else {
                 workUnit.replaceResourceWith(replacement);
