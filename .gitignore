@@ -27,5 +27,14 @@ hs_err_pid*
 .idea
 .cache
 
+# Eclipse
+.classpath
+.project
+.metadata
+.settings
+
 # Jacoco
 coverage-report/target
+
+# Checkstyle
+.checkstyle
