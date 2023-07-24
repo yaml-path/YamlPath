@@ -2,10 +2,13 @@ package io.github.yamlpath;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -124,6 +127,15 @@ public class YamlExpressionParserTest {
     }
 
     @Test
+    public void parseExpressionWithTags() throws IOException {
+        parser = YamlPath.from(YamlExpressionParserTest.class.getResourceAsStream("/test-tags.yml"));
+        List<String> found = parser.readSingle("tags.name");
+        assertCollection("name1", found, 0);
+        assertCollection("name2", found, 1);
+        assertCollection("name3", found, 2);
+    }
+
+    @Test
     public void parseExpressionWithCommandAndPosition() throws IOException {
         String found = parser.readSingleAndReplace("*.containers.command[1]", "{{ .Values.app.the-command }}");
         assertEquals("command2", found);
@@ -162,5 +174,20 @@ public class YamlExpressionParserTest {
         String expected = StringUtils
                 .readAllBytes(getClass().getResourceAsStream("/expected-" + method + "-kubernetes.yml"));
         assertEquals(expected, actual, "Unexpected generated YAML file. Found: " + actual);
+    }
+
+    private <T> void assertCollection(T expected, Collection<T> collection, int index) {
+        Iterator<T> it = collection.iterator();
+        int curr = 0;
+        while (curr < index) {
+            if (!it.hasNext()) {
+                fail("Collection has fewer elements than expected!");
+            }
+
+            it.next();
+            curr++;
+        }
+
+        assertEquals(expected, it.next());
     }
 }
