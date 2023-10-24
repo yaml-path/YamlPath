@@ -50,7 +50,7 @@
     <jackson-dataformat-yaml.version>2.15.3</jackson-dataformat-yaml.version>
     <junit-jupiter.version>5.10.0</junit-jupiter.version>
     <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
-    <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
     <formatter-maven-plugin.version>2.23.0</formatter-maven-plugin.version>
     <impsort-maven-plugin.version>1.9.0</impsort-maven-plugin.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
