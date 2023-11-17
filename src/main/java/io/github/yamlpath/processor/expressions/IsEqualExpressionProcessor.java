@@ -1,6 +1,6 @@
 package io.github.yamlpath.processor.expressions;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 
 import io.github.yamlpath.YamlExpressionParser;
@@ -17,7 +17,12 @@ public class IsEqualExpressionProcessor implements ExpressionProcessor {
 
     @Override
     public boolean evaluate(String left, String right, Map<Object, Object> resource) {
-        YamlExpressionParser parser = new YamlExpressionParser(Arrays.asList(resource));
-        return StringUtils.equals(parser.readSingle(left), right);
+        YamlExpressionParser parser = new YamlExpressionParser(Collections.singletonList(resource));
+        Object value = parser.readSingle(left);
+        if (value instanceof Integer) {
+            return Integer.valueOf(right).equals(value);
+        }
+
+        return StringUtils.equals(value, right);
     }
 }

@@ -104,6 +104,15 @@ public class YamlExpressionParserTest {
     }
 
     @Test
+    public void parseExpressionWithSeveralFiltersUsingNumber() throws IOException {
+        int found = parser.readSingleAndReplace(
+                "spec.template.spec.containers.ports.(containerPort == 8080).containerPort",
+                "{{ .Values.app.containerPort }}");
+        assertEquals(8080, found);
+        assertGeneratedYaml("parseExpressionWithSeveralFilters");
+    }
+
+    @Test
     public void parseExpressionWithWildcard() throws IOException {
         int found = parser.readSingleAndReplace("*.spec.containers.(name == example).ports.containerPort",
                 "{{ .Values.app.containerPort }}");
