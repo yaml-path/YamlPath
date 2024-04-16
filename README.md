@@ -1,4 +1,6 @@
 <p align="center">
+    <a href="https://maven-badges.herokuapp.com/maven-central/io.github.yaml-path/yaml-path/" alt="Maven Central">
+        <img src="https://maven-badges.herokuapp.com/maven-central/io.github.yaml-path/yaml-path/badge.svg"/></a>
     <a href="https://github.com/yaml-path/YamlPath/graphs/contributors" alt="Contributors">
         <img src="https://img.shields.io/github/contributors/yaml-path/YamlPath"/></a>
     <a href="https://github.com/yaml-path/YamlPath/pulse" alt="Activity">
