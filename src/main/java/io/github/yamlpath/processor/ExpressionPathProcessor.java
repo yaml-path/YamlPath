@@ -24,7 +24,8 @@ public class ExpressionPathProcessor implements PathProcessor {
         this.supportedExpressions = StreamSupport
                 .stream(ServiceLoader.load(ExpressionProcessor.class, ExpressionPathProcessor.class.getClassLoader())
                         .spliterator(), false)
-                .sorted(Comparator.comparingInt(ExpressionProcessor::getPriority)).collect(Collectors.toList());
+                .sorted(Comparator.comparingInt(ExpressionProcessor::getPriority).reversed())
+                .collect(Collectors.toList());
     }
 
     @Override
