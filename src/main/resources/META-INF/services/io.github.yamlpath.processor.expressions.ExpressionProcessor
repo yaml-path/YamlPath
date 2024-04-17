@@ -1,4 +1,5 @@
 io.github.yamlpath.processor.expressions.IsEqualExpressionProcessor
+io.github.yamlpath.processor.expressions.IsNotEqualExpressionProcessor
 io.github.yamlpath.processor.expressions.GreaterThanExpressionProcessor
 io.github.yamlpath.processor.expressions.GreaterOrEqualThanExpressionProcessor
 io.github.yamlpath.processor.expressions.LesserThanExpressionProcessor
