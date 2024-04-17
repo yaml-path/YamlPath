@@ -55,6 +55,13 @@ public class YamlExpressionParserTest {
     }
 
     @Test
+    public void parseExpressionUsingNotEqualFilter() throws IOException {
+        parser = YamlPath.from(YamlExpressionParserTest.class.getResourceAsStream("/test-routes.yml"));
+        String found = parser.readSingle("applications.(name == my-app).routes.(filterDouble != 2.2).route");
+        assertEquals("www.example.com/foo", found);
+    }
+
+    @Test
     public void parseExpressionUsingGreaterFilter() throws IOException {
         parser = YamlPath.from(YamlExpressionParserTest.class.getResourceAsStream("/test-routes.yml"));
         String found = parser.readSingle("applications.(name == my-app).routes.(filterDouble > 3).route");
