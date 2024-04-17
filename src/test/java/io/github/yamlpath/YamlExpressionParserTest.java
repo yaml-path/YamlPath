@@ -48,6 +48,41 @@ public class YamlExpressionParserTest {
     }
 
     @Test
+    public void parseExpressionUsingFilterOfTypeNumber() throws IOException {
+        parser = YamlPath.from(YamlExpressionParserTest.class.getResourceAsStream("/test-routes.yml"));
+        String found = parser.readSingle("applications.(name == my-app).routes.(filterDouble == 2.2).route");
+        assertEquals("example.com", found);
+    }
+
+    @Test
+    public void parseExpressionUsingGreaterFilter() throws IOException {
+        parser = YamlPath.from(YamlExpressionParserTest.class.getResourceAsStream("/test-routes.yml"));
+        String found = parser.readSingle("applications.(name == my-app).routes.(filterDouble > 3).route");
+        assertEquals("www.example.com/foo", found);
+    }
+
+    @Test
+    public void parseExpressionUsingGreaterOrEqualFilter() throws IOException {
+        parser = YamlPath.from(YamlExpressionParserTest.class.getResourceAsStream("/test-routes.yml"));
+        String found = parser.readSingle("applications.(name == my-app).routes.(filterDouble >= 3.5).route");
+        assertEquals("www.example.com/foo", found);
+    }
+
+    @Test
+    public void parseExpressionUsingLesserFilter() throws IOException {
+        parser = YamlPath.from(YamlExpressionParserTest.class.getResourceAsStream("/test-routes.yml"));
+        String found = parser.readSingle("applications.(name == my-app).routes.(filterDouble < 3).route");
+        assertEquals("example.com", found);
+    }
+
+    @Test
+    public void parseExpressionUsingLesserThanFilter() throws IOException {
+        parser = YamlPath.from(YamlExpressionParserTest.class.getResourceAsStream("/test-routes.yml"));
+        String found = parser.readSingle("applications.(name == my-app).routes.(filterDouble <= 2.2).route");
+        assertEquals("example.com", found);
+    }
+
+    @Test
     public void parseExpressionWithEscape() throws IOException {
         String found = parser.readSingleAndReplace("spec.selector.matchLabels.'app.kubernetes.io/name'",
                 "{{ .Values.app.label }}");

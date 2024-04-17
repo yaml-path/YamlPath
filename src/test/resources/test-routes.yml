@@ -4,8 +4,10 @@ applications:
   routes:
     - route: example.com
       filterBoolean: true
+      filterDouble: 2.2
     - route: www.example.com/foo
       filterBoolean: false
+      filterDouble: 3.5
   env:
     greeting: hello
     BUNDLE_WITHOUT: test:development
