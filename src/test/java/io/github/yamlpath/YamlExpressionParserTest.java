@@ -41,6 +41,13 @@ public class YamlExpressionParserTest {
     }
 
     @Test
+    public void parseExpressionUsingFilterOfTypeBoolean() throws IOException {
+        parser = YamlPath.from(YamlExpressionParserTest.class.getResourceAsStream("/test-routes.yml"));
+        String found = parser.readSingle("applications.(name == my-app).routes.(filterBoolean == true).route");
+        assertEquals("example.com", found);
+    }
+
+    @Test
     public void parseExpressionWithEscape() throws IOException {
         String found = parser.readSingleAndReplace("spec.selector.matchLabels.'app.kubernetes.io/name'",
                 "{{ .Values.app.label }}");
