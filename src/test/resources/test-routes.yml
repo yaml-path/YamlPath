@@ -1,0 +1,12 @@
+---
+applications:
+  name: my-app
+  routes:
+    - route: example.com
+      filterBoolean: true
+    - route: www.example.com/foo
+      filterBoolean: false
+  env:
+    greeting: hello
+    BUNDLE_WITHOUT: test:development
+    stuff: other

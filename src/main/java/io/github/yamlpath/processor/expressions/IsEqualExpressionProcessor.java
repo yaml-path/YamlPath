@@ -21,6 +21,8 @@ public class IsEqualExpressionProcessor implements ExpressionProcessor {
         Object value = parser.readSingle(left);
         if (value instanceof Integer) {
             return Integer.valueOf(right).equals(value);
+        } else if (value instanceof Boolean) {
+            return Boolean.valueOf(right).equals(value);
         }
 
         return StringUtils.equals(value, right);
