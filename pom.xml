@@ -3,7 +3,7 @@
   <groupId>io.github.yaml-path</groupId>
   <artifactId>yaml-path</artifactId>
   <packaging>jar</packaging>
-  <version>0.0.12</version>
+  <version>0.0.13-SNAPSHOT</version>
   <name>YAML-Path Expression Language Parser</name>
   <description>A Java DSL for reading YAML documents and replacing values</description>
   <url>https://github.com/yaml-path/YamlPath</url>
@@ -27,7 +27,7 @@
     <connection>scm:git:git@github.com:yaml-path/YamlPath.git</connection>
     <developerConnection>scm:git:git@github.com:yaml-path/YamlPath.git</developerConnection>
     <url>https://github.com/yaml-path/YamlPath</url>
-    <tag>0.0.12</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
