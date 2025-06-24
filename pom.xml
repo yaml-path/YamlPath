@@ -64,7 +64,7 @@
     <!-- Format Settings -->
     <src.format.goal>format</src.format.goal>
     <src.sort.goal>sort</src.sort.goal>
-    <checkstyle.version>10.25.0</checkstyle.version>
+    <checkstyle.version>10.26.0</checkstyle.version>
     <!-- Code Coverage Properties-->
     <jacoco.agent.argLine />
   </properties>
