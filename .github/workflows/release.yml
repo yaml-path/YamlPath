@@ -13,7 +13,7 @@ jobs:
     name: release
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: radcortez/project-metadata-action@main
         name: Retrieve project metadata
