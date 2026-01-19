@@ -47,7 +47,7 @@
     <maven.compiler.release>8</maven.compiler.release>
     <maven.compiler.parameters>true</maven.compiler.parameters>
 
-    <jackson-dataformat-yaml.version>2.20.1</jackson-dataformat-yaml.version>
+    <jackson-dataformat-yaml.version>2.21.0</jackson-dataformat-yaml.version>
     <junit-jupiter.version>5.13.4</junit-jupiter.version>
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
